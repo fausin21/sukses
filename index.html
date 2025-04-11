@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Shopee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .progress-container {
+            margin: 30px 0;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            position: relative;
+        }
+        .progress-bar {
+            height: 20px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #ee4d2d, #ff7337);
+            width: 0%;
+            transition: width 3s ease-in-out;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .stat-box {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ee4d2d;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .news-container {
+            margin: 30px 0;
+        }
+        .news-title {
+            font-size: 20px;
+            border-bottom: 2px solid #ee4d2d;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .news-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-left: 4px solid #ee4d2d;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .news-date {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .news-headline {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .news-excerpt {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .ad-banner {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px dashed #ddd;
+        }
+        .ad-banner img {
+            max-width: 100%;
+            height: auto;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #888;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin-top: 20px;
+                padding: 15px;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/api/placeholder/150/50" alt="Site Logo" class="logo">
+            <h1>Redirecting to Shopee</h1>
+            <p>Please wait while we redirect you to our exclusive Shopee deals!</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">Connecting to Shopee...</div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number" id="visitorCount">0</div>
+                <div class="stat-label">Visitors Today</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="successCount">0</div>
+                <div class="stat-label">Successful Redirects</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Active Deals</div>
+            </div>
+        </div>
+
+        <div class="ad-banner">
+            <img src="/api/placeholder/728/90" alt="Advertisement Banner">
+        </div>
+
+        <div class="news-container">
+            <h2 class="news-title">Latest Shopping News</h2>
+            <div id="newsContent">
+                <!-- News will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div class="ad-banner">
+            <img src="/api/placeholder/300/250" alt="Advertisement Banner">
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Shopping Redirect Service. All rights reserved.</p>
+            <p>Not affiliated with Shopee. We just love great deals!</p>
+        </div>
+    </div>
+
+    <script>
+        // Array of redirect URLs from your file
+        const redirectUrls = [
+            "https://s.shopee.co.id/1B5k4xqYf0",
+            "https://s.shopee.co.id/10mJserBzz",
+            "https://s.shopee.co.id/1ViaTZpHz6",
+            "https://s.shopee.co.id/1LPAHGpvK5",
+            "https://s.shopee.co.id/1qLQsBo1JC",
+            "https://s.shopee.co.id/1g20fsoeeB",
+            "https://s.shopee.co.id/2AyHGnmkdI",
+            "https://s.shopee.co.id/20er4UnNyH",
+            "https://s.shopee.co.id/2Vb7fPlTxO",
+            "https://s.shopee.co.id/2LHhT6m7IN",
+            "https://s.shopee.co.id/2qDy41kDHU",
+            "https://s.shopee.co.id/2fuXrikqcT",
+            "https://s.shopee.co.id/3AqoSdiwba",
+            "https://s.shopee.co.id/30XOGKjZwZ",
+            "https://s.shopee.co.id/3VTerFhfvg",
+            "https://s.shopee.co.id/3LAEewiJGf",
+            "https://s.shopee.co.id/3q6VFrgPFm",
+            "https://s.shopee.co.id/3fn53Yh2al",
+            "https://s.shopee.co.id/4AjLeTf8Zs",
+            "https://s.shopee.co.id/40PvSAflur",
+            "https://s.shopee.co.id/4VMC35drty",
+            "https://s.shopee.co.id/4L2lqmeVEx",
+            "https://s.shopee.co.id/4pz2RhcbE4",
+            "https://s.shopee.co.id/4ffcFOdEZ3",
+            "https://s.shopee.co.id/5AbsqJbKYA",
+            "https://s.shopee.co.id/50ISe0bxt9",
+            "https://s.shopee.co.id/5VEjEva3sG",
+            "https://s.shopee.co.id/5KvJ2cahDF",
+            "https://s.shopee.co.id/5prZdXYnCM",
+            "https://s.shopee.co.id/5fY9REZQXL",
+            "https://s.shopee.co.id/6AUQ29XWWS",
+            "https://s.shopee.co.id/60AzpqY9rR",
+            "https://s.shopee.co.id/6V7GQlWFqY",
+            "https://s.shopee.co.id/6KnqESWtBX",
+            "https://s.shopee.co.id/6pk6pNUzAe",
+            "https://s.shopee.co.id/6fQgd4VcVd",
+            "https://s.shopee.co.id/7AMxDzTiUk",
+            "https://s.shopee.co.id/703X1gULpj",
+            "https://s.shopee.co.id/7UzncbSRoq",
+            "https://s.shopee.co.id/7KgNQIT59p",
+            "https://s.shopee.co.id/7pce1DRB8w",
+            "https://s.shopee.co.id/7fJDouRoTv",
+            "https://s.shopee.co.id/8AFUPpPuT2",
+            "https://s.shopee.co.id/7zw4DWQXo1",
+            "https://s.shopee.co.id/8UsKoROdn8",
+            "https://s.shopee.co.id/8KYuc8PH87",
+            "https://s.shopee.co.id/8pVBD3NN7E",
+            "https://s.shopee.co.id/8fBl0kO0SD",
+            "https://s.shopee.co.id/9A81bfM6RK",
+            "https://s.shopee.co.id/8zobPMMjmJ",
+            "https://s.shopee.co.id/9Uks0HKplQ",
+            "https://s.shopee.co.id/9KRRnyLT6P",
+            "https://s.shopee.co.id/9pNiOtJZ5W",
+            "https://s.shopee.co.id/9f4ICaKCQV",
+            "https://s.shopee.co.id/AA0YnVIIPc",
+            "https://s.shopee.co.id/9zh8bCIvkb",
+            "https://s.shopee.co.id/AUdPC7H1ji",
+            "https://s.shopee.co.id/AKJyzoHf4h",
+            "https://s.shopee.co.id/tmgov02i",
+            "https://s.shopee.co.id/BDCt7uMhl",
+            "https://s.shopee.co.id/LWd5QtjMo",
+            "https://s.shopee.co.id/Vq3Hjt61r",
+            "https://s.shopee.co.id/g9TU2sSgu",
+            "https://s.shopee.co.id/qStgLrpLx",
+            "https://s.shopee.co.id/10mJserC10",
+            "https://s.shopee.co.id/1B5k4xqYg3",
+            "https://s.shopee.co.id/1LPAHGpvL6",
+            "https://s.shopee.co.id/1ViaTZpI09",
+            "https://s.shopee.co.id/1g20fsoefC",
+            "https://s.shopee.co.id/1qLQsBo1KF",
+            "https://s.shopee.co.id/20er4UnNzI",
+            "https://s.shopee.co.id/2AyHGnmkeL",
+            "https://s.shopee.co.id/2LHhT6m7JO",
+            "https://s.shopee.co.id/2Vb7fPlTyR",
+            "https://s.shopee.co.id/2fuXrikqdU",
+            "https://s.shopee.co.id/2qDy41kDIX",
+            "https://s.shopee.co.id/30XOGKjZxa",
+            "https://s.shopee.co.id/3AqoSdiwcd",
+            "https://s.shopee.co.id/3LAEewiJHg",
+            "https://s.shopee.co.id/3VTerFhfwj",
+            "https://s.shopee.co.id/3fn53Yh2bm",
+            "https://s.shopee.co.id/3q6VFrgPGp",
+            "https://s.shopee.co.id/40PvSAflvs",
+            "https://s.shopee.co.id/4AjLeTf8av",
+            "https://s.shopee.co.id/4L2lqmeVFy",
+            "https://s.shopee.co.id/4VMC35drv1",
+            "https://s.shopee.co.id/4ffcFOdEa4",
+            "https://s.shopee.co.id/4pz2RhcbF7",
+            "https://s.shopee.co.id/50ISe0bxuA",
+            "https://s.shopee.co.id/5AbsqJbKZD",
+            "https://s.shopee.co.id/5KvJ2cahEG",
+            "https://s.shopee.co.id/5VEjEva3tJ",
+            "https://s.shopee.co.id/5fY9REZQYM",
+            "https://s.shopee.co.id/5prZdXYnDP",
+            "https://s.shopee.co.id/60AzpqY9sS",
+            "https://s.shopee.co.id/6AUQ29XWXV",
+            "https://s.shopee.co.id/6KnqESWtCY",
+            "https://s.shopee.co.id/6V7GQlWFrb",
+            "https://s.shopee.co.id/6fQgd4VcWe",
+            "https://s.shopee.co.id/6pk6pNUzBh"
+        ];
+
+        // Daily news database
+        const newsDatabase = [
+            {
+                date: "April 11, 2025",
+                headline: "Shopee Flash Sale: Up to 90% Off on Electronics Today Only!",
+                excerpt: "Don't miss today's flash sale with incredible discounts on the latest smartphones, laptops, and smart home devices. Limited quantities available!"
+            },
+            {
+                date: "April 12, 2025",
+                headline: "New Fashion Trends for Summer 2025 Available Now",
+                excerpt: "Get ready for the hot season with the newest summer collections from top brands. Use exclusive discount codes for extra savings!"
+            },
+            {
+                date: "April 13, 2025",
+                headline: "Beauty Week Starts Today: Special Deals on Skincare Products",
+                excerpt: "Transform your beauty routine with premium products at affordable prices. Free gifts with purchases over Rp 300.000!"
+            },
+            {
+                date: "April 14, 2025",
+                headline: "Home & Living Sale: Refresh Your Space for Less",
+                excerpt: "From kitchen essentials to bedroom decor, save big on everything you need to give your home a stylish update."
+            },
+            {
+                date: "April 15, 2025",
+                headline: "Food & Groceries Promo: Free Delivery on Orders Above Rp 100.000",
+                excerpt: "Stock up your pantry with essential groceries and enjoy free delivery service all week long. Order now!"
+            },
+            {
+                date: "April 16, 2025",
+                headline: "Tech Bonanza: New Smartphone Models with Exclusive Pre-order Gifts",
+                excerpt: "Be the first to own the latest smartphone models with special pre-order bonuses including wireless earbuds and power banks."
+            },
+            {
+                date: "April 17, 2025",
+                headline: "Kids & Baby Products: Buy 1 Get 1 Free on Selected Items",
+                excerpt: "Great deals on toys, clothing, and essentials for the little ones. Limited time offer until stocks last!"
+            }
+        ];
+
+        // Function to get a random redirect URL
+        function getRandomRedirectUrl() {
+            const randomIndex = Math.floor(Math.random() * redirectUrls.length);
+            return redirectUrls[randomIndex];
+        }
+
+        // Function to update the progress bar
+        function updateProgressBar(percent) {
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').innerText = `Redirecting: ${percent}% complete...`;
+        }
+
+        // Function to simulate visitor count
+        function updateVisitorCount() {
+            // Generate a random number between 500 and 2000 for today's visitors
+            const visitorCount = Math.floor(Math.random() * 1500) + 500;
+            document.getElementById('visitorCount').innerText = visitorCount.toLocaleString();
+            
+            // Generate successful redirects (slightly lower than visitor count)
+            const successCount = Math.floor(visitorCount * 0.92);
+            document.getElementById('successCount').innerText = successCount.toLocaleString();
+        }
+
+        // Function to load news based on current date
+        function loadDailyNews() {
+            const newsContent = document.getElementById('newsContent');
+            newsContent.innerHTML = ''; // Clear existing content
+
+            // Get current date to determine which news to show
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            
+            // Select news for today (modulo to handle array bounds)
+            const todayNews = newsDatabase[dayOfWeek % newsDatabase.length];
+            
+            // Create news element
+            const newsItem = document.createElement('div');
+            newsItem.className = 'news-item';
+            newsItem.innerHTML = `
+                <div class="news-date">${todayNews.date}</div>
+                <div class="news-headline">${todayNews.headline}</div>
+                <div class="news-excerpt">${todayNews.excerpt}</div>
+            `;
+            newsContent.appendChild(newsItem);
+            
+            // Add one more news item (yesterday's news)
+            const yesterdayIndex = (dayOfWeek - 1 + 7) % 7 % newsDatabase.length;
+            const yesterdayNews = newsDatabase[yesterdayIndex];
+            
+            const yesterdayItem = document.createElement('div');
+            yesterdayItem.className = 'news-item';
+            yesterdayItem.innerHTML = `
+                <div class="news-date">${yesterdayNews.date}</div>
+                <div class="news-headline">${yesterdayNews.headline}</div>
+                <div class="news-excerpt">${yesterdayNews.excerpt}</div>
+            `;
+            newsContent.appendChild(yesterdayItem);
+        }
+
+        // Initialize page
+        window.onload = function() {
+            // Update visitor stats
+            updateVisitorCount();
+            
+            // Load today's news
+            loadDailyNews();
+            
+            // Start progress animation
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 1;
+                updateProgressBar(progress);
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Get redirect URL and redirect
+                    const redirectUrl = getRandomRedirectUrl();
+                    document.getElementById('progressText').innerText = 'Redirect complete! Taking you to Shopee...';
+                    
+                    // After a small delay, redirect to the URL
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 500);
+                }
+            }, 30); // Completes in about 3 seconds
+        };
+    </script>
+</body>
+</html>
