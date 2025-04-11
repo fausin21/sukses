@@ -6,134 +6,315 @@
     <title>Redirecting to Shopee</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
+            min-height: 100vh;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 15px;
             margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ee4d2d, #ff7337);
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
-        }
-        .logo {
-            width: 150px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .progress-container {
-            margin: 30px 0;
-            background-color: #f0f0f0;
-            border-radius: 20px;
+            margin-bottom: 40px;
             position: relative;
         }
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ee4d2d;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .progress-container {
+            margin: 40px 0;
+            background-color: #f0f0f0;
+            border-radius: 30px;
+            position: relative;
+            height: 25px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
         .progress-bar {
-            height: 20px;
-            border-radius: 20px;
+            height: 100%;
+            border-radius: 30px;
             background: linear-gradient(90deg, #ee4d2d, #ff7337);
             width: 0%;
             transition: width 3s ease-in-out;
+            position: relative;
+        }
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255,255,255,0.2) 50%,
+                rgba(255,255,255,0.2) 75%,
+                transparent 75%
+            );
+            background-size: 30px 30px;
+            animation: move 1s linear infinite;
+            border-radius: 30px;
+        }
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 30px 0;
+            }
         }
         .progress-text {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
+            font-size: 16px;
+            color: #ee4d2d;
         }
         .stats {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #f9f9f9, #f0f0f0);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .stats:hover {
+            transform: translateY(-5px);
         }
         .stat-box {
             text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        .stat-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         .stat-number {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #ee4d2d;
+            margin-bottom: 5px;
         }
         .stat-label {
             font-size: 14px;
             color: #666;
+            font-weight: 500;
         }
         .news-container {
-            margin: 30px 0;
+            margin: 40px 0;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         .news-title {
-            font-size: 20px;
-            border-bottom: 2px solid #ee4d2d;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            background: linear-gradient(90deg, #ee4d2d, #ff7337);
+            color: white;
+            padding: 15px 20px;
+            margin: 0;
+            border-radius: 12px 12px 0 0;
+        }
+        .news-content {
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
         }
         .news-item {
-            margin-bottom: 20px;
-            padding: 15px;
+            margin: 0;
+            padding: 20px;
             background-color: #fff;
-            border-left: 4px solid #ee4d2d;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .news-item:hover {
+            background-color: #f9f9f9;
+            transform: scale(1.01);
         }
         .news-date {
-            font-size: 12px;
+            font-size: 13px;
             color: #888;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
         }
         .news-headline {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: #ee4d2d;
         }
         .news-excerpt {
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
         }
         .ad-banner {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 30px 0;
+            padding: 0;
             background-color: #f5f5f5;
             text-align: center;
-            border-radius: 8px;
-            border: 1px dashed #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .ad-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .ad-banner::after {
+            content: 'Advertisement';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 10px;
+            color: #999;
+            background-color: rgba(255,255,255,0.7);
+            padding: 2px 8px;
+            border-radius: 10px;
         }
         .ad-banner img {
             max-width: 100%;
             height: auto;
+            display: block;
+            border-radius: 12px;
         }
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 40px;
+            padding-top: 25px;
             border-top: 1px solid #eee;
             font-size: 14px;
             color: #888;
         }
-        @media (max-width: 600px) {
+        .footer p {
+            margin: 5px 0;
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(238, 77, 45, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(238, 77, 45, 0);
+            }
+        }
+        .news-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        .news-slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slider-dot.active {
+            background-color: #ee4d2d;
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px) {
             .container {
                 margin-top: 20px;
+                padding: 20px;
+            }
+            .stats {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .stat-box {
+                min-width: 40%;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
                 padding: 15px;
+            }
+            .stat-box {
+                min-width: 100%;
+                margin-bottom: 10px;
             }
             .stats {
                 flex-direction: column;
-                gap: 15px;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="/api/placeholder/150/50" alt="Site Logo" class="logo">
+            <img src="/api/placeholder/150/50" alt="Site Logo" class="logo pulse">
             <h1>Redirecting to Shopee</h1>
             <p>Please wait while we redirect you to our exclusive Shopee deals!</p>
         </div>
@@ -164,14 +345,18 @@
 
         <div class="news-container">
             <h2 class="news-title">Latest Shopping News</h2>
-            <div id="newsContent">
-                <!-- News will be dynamically loaded here -->
+            <div class="news-slider">
+                <div class="news-slider-container" id="newsContent">
+                    <!-- News will be dynamically loaded here -->
+                </div>
+                <div class="slider-controls" id="sliderControls">
+                    <!-- Dots will be added dynamically -->
+                </div>
             </div>
         </div>
 
         <div class="ad-banner">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2231682993716971"
-     crossorigin="anonymous"></script>
+            <img src="/api/placeholder/300/250" alt="Advertisement Banner">
         </div>
 
         <div class="footer">
@@ -323,7 +508,7 @@
                 excerpt: "Great deals on toys, clothing, and essentials for the little ones. Limited time offer until stocks last!"
             }
         ];
-          <meta name="google-adsense-account" content="ca-pub-2231682993716971">  
+
         // Function to get a random redirect URL
         function getRandomRedirectUrl() {
             const randomIndex = Math.floor(Math.random() * redirectUrls.length);
@@ -351,36 +536,74 @@
         function loadDailyNews() {
             const newsContent = document.getElementById('newsContent');
             newsContent.innerHTML = ''; // Clear existing content
-
+            
             // Get current date to determine which news to show
             const today = new Date();
             const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
             
-            // Select news for today (modulo to handle array bounds)
-            const todayNews = newsDatabase[dayOfWeek % newsDatabase.length];
+            // Create slider controls container
+            const sliderControls = document.getElementById('sliderControls');
+            sliderControls.innerHTML = '';
             
-            // Create news element
-            const newsItem = document.createElement('div');
-            newsItem.className = 'news-item';
-            newsItem.innerHTML = `
-                <div class="news-date">${todayNews.date}</div>
-                <div class="news-headline">${todayNews.headline}</div>
-                <div class="news-excerpt">${todayNews.excerpt}</div>
-            `;
-            newsContent.appendChild(newsItem);
+            // Load all news items into the slider
+            newsDatabase.forEach((news, index) => {
+                // Create news element
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.style.width = '100%';
+                newsItem.style.flex = '0 0 100%';
+                
+                // Highlight today's news
+                if (index === dayOfWeek % newsDatabase.length) {
+                    newsItem.style.borderLeft = '4px solid #ee4d2d';
+                }
+                
+                newsItem.innerHTML = `
+                    <div class="news-date">${news.date}</div>
+                    <div class="news-headline">${news.headline}</div>
+                    <div class="news-excerpt">${news.excerpt}</div>
+                `;
+                newsContent.appendChild(newsItem);
+                
+                // Create dot for this slide
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot';
+                if (index === dayOfWeek % newsDatabase.length) {
+                    dot.classList.add('active');
+                }
+                dot.setAttribute('data-index', index);
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+                sliderControls.appendChild(dot);
+            });
             
-            // Add one more news item (yesterday's news)
-            const yesterdayIndex = (dayOfWeek - 1 + 7) % 7 % newsDatabase.length;
-            const yesterdayNews = newsDatabase[yesterdayIndex];
+            // Show today's news first
+            showSlide(dayOfWeek % newsDatabase.length);
             
-            const yesterdayItem = document.createElement('div');
-            yesterdayItem.className = 'news-item';
-            yesterdayItem.innerHTML = `
-                <div class="news-date">${yesterdayNews.date}</div>
-                <div class="news-headline">${yesterdayNews.headline}</div>
-                <div class="news-excerpt">${yesterdayNews.excerpt}</div>
-            `;
-            newsContent.appendChild(yesterdayItem);
+            // Set up auto-rotation for news
+            setInterval(() => {
+                const activeIndex = parseInt(document.querySelector('.slider-dot.active').getAttribute('data-index'));
+                const nextIndex = (activeIndex + 1) % newsDatabase.length;
+                showSlide(nextIndex);
+            }, 5000); // Change news every 5 seconds
+        }
+        
+        // Function to show a specific slide
+        function showSlide(index) {
+            const newsContent = document.getElementById('newsContent');
+            const dots = document.querySelectorAll('.slider-dot');
+            
+            // Update slider position
+            newsContent.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update active dot
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (parseInt(dot.getAttribute('data-index')) === index) {
+                    dot.classList.add('active');
+                }
+            });
         }
 
         // Initialize page
